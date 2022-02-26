@@ -1,25 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<title>{{ title }}</title>
-<div class="container">
-  <h1>Лев Толстой – зеркало русской революции.</h1>
+  <title>{{ title }}</title>
+  <div class="container">
+    <h1>Лев Толстой – зеркало русской революции.</h1>
     <p>
       Группа тайных поклонников графа.
     </p>
-  {% for post in posts %}
-  <article>
-    <ul>
-      <li>
-        Автор: {{ post.author.get_full_name }}
-      </li>
-      <li>
-        Дата публикации: {{ post.pub_date|date:"d E Y" }}
-      </li>
-    </ul>
-    <p>
-      {{ post.text }}
-    </p>
-  </article>
-  {% endfor %}
-</div>
+    {% for post in posts %}
+      <article>
+        <ul>
+          <li>
+            Автор: {{ post.author.get_full_name }}
+          </li>
+          <li>
+            Дата публикации: {{ post.pub_date|date:"d E Y" }}
+          </li>
+        </ul>
+        <p>
+          {{ post.text }}
+        </p>
+      </article>
+    {% endfor %}
+  </div>
 {% endblock %}
