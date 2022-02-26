@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% block title %}
+      <title>{{ 'Главная страница' }}</title>
+{% endblock %}
 {% block content %}
-<title>{{ title }}</title>
-  <div class="container py-5">     
-    <h1>{{ text }}</h1>
-    {% for post in posts %}
+  <h1>{{ 'Последние обновления на сайте' }}</h1>
+  {% for post in posts %}
     <article>  
       <ul>
         <li>
@@ -25,6 +26,5 @@
         <hr>
       {% endif %}
     </article>
-    {% endfor %}
-  </div>
+  {% endfor %}
 {% endblock %}

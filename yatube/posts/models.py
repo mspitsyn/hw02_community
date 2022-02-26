@@ -11,7 +11,7 @@ class Group(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return {self.title}
+        return self.title
 
 
 class Post(models.Model):
@@ -25,10 +25,13 @@ class Post(models.Model):
     )
     group = models.ForeignKey(
         Group,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='posts',
         blank=True, null=True, max_length=100,
     )
+
+    class Meta:
+        ordering = ['-pub_date']
 
     def __str__(self):
         return self.text
