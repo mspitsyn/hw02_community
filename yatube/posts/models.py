@@ -5,7 +5,6 @@ User = get_user_model()
 
 
 class Group(models.Model):
-
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
@@ -15,7 +14,6 @@ class Group(models.Model):
 
 
 class Post(models.Model):
-
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(
@@ -34,4 +32,4 @@ class Post(models.Model):
         ordering = ['-pub_date']
 
     def __str__(self):
-        return self.text
+        return str(self.id)
