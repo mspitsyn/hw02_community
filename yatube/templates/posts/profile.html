@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}
+      <title>Профайл пользователя {{ user.username }}</title>
+{% endblock %}
+{% block content %}
+    <main>
+      <div class="container py-5">        
+        <h1>Все посты пользователя {{ author.get_full_name }} </h1>
+        <h3>Всего постов: {{ author.all.count }} </h3>   
+        <article>
+          <ul>
+            <li>
+              {% for post in page_obj %}
+              Автор: {{ author }}
+              <a href="{% url 'post:profile' post.autor.username %}">все посты пользователя</a>
+            </li>
+            <li>
+              Дата публикации: {{ post.pub_date|date:"d E Y" }}
+            </li>
+          </ul>
+          <p>
+          {{ post.text }}
+          </p>
+          <a href="{% url 'about:author' %}">подробная информация </a>
+        </article>       
+        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>        
+        <hr>
+        {% for post in page_obj %}
+            {% include "post_detalil.html" with post=post %}
+        {% endfor %}    
+        {% if page.has_other_pages %}
+            {% include 'posts/includes/paginator.html' %}
+        {% endif%}
+      {% endfor %}
+      </div>
+    </main>
+{% endblock %}

@@ -57,8 +57,8 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     template = 'posts/post_detail.html'
-
+    post = get_object_or_404(Post, pk=post_id)
     context = {
-        
+        'post': post,
     }
     return render(request, template, context)
