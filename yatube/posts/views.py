@@ -8,6 +8,7 @@ from .models import Post, Group, User
 LIMIT_POSTS = 10
 
 
+@login_required
 def index(request):
     template = 'posts/index.html'
     posts_list = Post.objects.all()
@@ -20,7 +21,7 @@ def index(request):
     return render(request, template, context)
 
 
-
+@login_required
 def group_posts(request, slug):
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
@@ -61,20 +62,17 @@ def post_detail(request, post_id):
     return render(request, template, context)
 
 
-#def post_create(request):
-#    template = 'posts/create_post.html'
- #   context = {
-  #      'text': text,
-   #     'group': group,
-    #}
-    #return render(request, template, context)
+def post_create(request):
+    template = 'posts/create_post.html'
+    form = PostForm(request.POST or None)
+    return render(request, template, {'form': form})
 
 
 def post_edit(request, post_id):
+    template = 'posts/create_post.html'
     post = get_object_or_404(Post, id=post_id)
     username = request.user.username
     form = PostForm(request.POST or None, instance=post)
-    template = 'posts/create_post.html'
     if form.is_valid():
         form.save()
         return redirect('posts:profile', username=username)
