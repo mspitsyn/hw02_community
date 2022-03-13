@@ -64,7 +64,11 @@ def post_detail(request, post_id):
 
 def post_create(request):
     template = 'posts/create_post.html'
+    username = request.user.username
     form = PostForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('posts:profile', username=username)
     return render(request, template, {'form': form})
 
 
