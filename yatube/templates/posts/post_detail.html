@@ -35,6 +35,11 @@
           <p>
             {{ post.text }} 
           </p>
+          {% if post.author.username %}
+            <a class="btn btn-primary" href="{% url 'posts:post_create' %}">
+              редактировать запись
+            </a>
+          {% endif %}   
         </article>
       </div> 
     </main>
