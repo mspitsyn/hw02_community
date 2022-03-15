@@ -81,8 +81,6 @@ def post_edit(request, post_id):
     template = 'posts/create_post.html'
     post = get_object_or_404(Post, id=post_id)
     form = PostForm(request.POST or None, instance=post)
-    new_post = form.save(commit=False)
-    new_post.author = request.user
     if form.is_valid():
         new_post = form.save(commit=False)
         new_post.author = request.user

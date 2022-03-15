@@ -3,15 +3,14 @@
       <title>Пост {{ post.text|truncatechars:30 }}</title>
 {% endblock %}
 {% block content %}
-<a> Hai!</a>    
-    <!--<main>
+    <main>
       <div class="row">
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               Дата публикации: {{ post.pub_date|date:"d E Y" }}  
             </li>
-            {% if post in group %}  
+            {% if post.group %}  
               <li class="list-group-item">
                 Группа: {{ post.group }}
                 <a href={% url 'posts:group_list' post.group.slug %}>
@@ -26,7 +25,7 @@
             {% endif %}
             </li>
             <li class="list-group-item">
-              <a href="{% url 'posts:profile' posts.author.username %}">
+              <a href="{% url 'posts:profile' post.author.username %}">
                 все посты пользователя
               </a>
             </li>
@@ -38,5 +37,5 @@
           </p>
         </article>
       </div> 
-    </main>-->
+    </main>
 {% endblock %}
