@@ -55,7 +55,7 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     template = 'posts/post_detail.html'
-    post = get_object_or_404(Post, pk=post_id)
+    post = Post.objects.get(id=post_id)
     author = post.author
     posts = Post.objects.filter(author=author)
     context = {
@@ -85,17 +85,17 @@ def post_create(request):
 
 @login_required
 def post_edit(request, post_id):
-    is_edit = True
-    post = get_object_or_404(Post, pk=post_id)
-    form = PostForm(request.POST, instance=post)
+    form = PostForm(request.POST or None)
+    post = Post.objects.get(id=post_id)
+    author = post.author.username
+    if author != request.user.username:
+        return redirect('posts:post_detail', post.id)
     if form.is_valid():
-        post = form.save(commit=False)
-        post.author = request.user
+        post.text = form.cleaned_data['text']
         post.save()
-        return redirect('posts:post_detail', post_id=post.pk)
-    else:
-        form = PostForm(instance=post)
-        context = {'form': form,
-                   'is_edit': is_edit,
-                   'post_id': post_id}
+        return redirect('posts:post_detail', post.id)
+    context = {
+        'form': form,
+        'is_edit': True,
+        'post': post}
     return render(request, 'posts/create_post.html', context)
